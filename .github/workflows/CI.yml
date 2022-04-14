@@ -5,6 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Run tests
         run:
           pip install pytest
@@ -15,3 +20,9 @@ jobs:
       - name: run docker image
         run:
           docker run test
+      - name: docker tag
+        run:
+          docker tag test:latest nicolasynovia/ynov_test_unitaire:test_image
+      - name: docker push
+        run:
+          docker push nicolasynovia/ynov_test_unitaire:test_image
