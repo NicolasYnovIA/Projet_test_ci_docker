@@ -4,7 +4,7 @@ jobs:
   test_build_run:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
       - name: Run tests
         run:
           pip install pytest
